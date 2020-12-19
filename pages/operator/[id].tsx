@@ -15,12 +15,12 @@ export default function operatorContainer ():any{
   const [ls, setLs] = useState(localState)
   const copyState = {...ls}
 
-  const delFirstZero =(sum)=>{
+  const delFirstZero =(sum:string)=>{
     const check = sum.slice(0,2);
-    if(check.match(/0[0-9]/)) return Number(sum)
+    if(check.match(/0[0-9]/)) return Number(sum).toString();
     return sum
   }
-  const moneyValidationOnlyNumb =(str)=>{
+  const moneyValidationOnlyNumb =(str:string)=>{
     str = str.replace(",", ".");
     const isInteger = str.match(/[.]/g)
 
@@ -28,30 +28,28 @@ export default function operatorContainer ():any{
     if(isInteger){
       if(isInteger.length>1) return false
     }
-    if(str === "." || str === "0."){
-      return "0."
+    if(str === "." || str === "0." || str === '0'){
+      return "0";
     }else if(str === ''){
-      return ''
-    }else if(str === 0){
-      return 0
+      return '';
     }
     if(!str.match(/[.]/g)) return delFirstZero(str)
     if(str.split('.').pop().length <= 2) return delFirstZero(str)
   }
-  const moneyValidationSum =(sum)=>{
-    sum = moneyValidationOnlyNumb(sum)
-    if(sum || sum === '' || sum === 0){
+  const moneyValidationSum =(moneySum:string)=>{
+    let sum:string|boolean = moneyValidationOnlyNumb(moneySum)
+    if(sum || sum === '' || sum === '0'){
       copyState.money = {...ls.money}
       copyState.money.status = {...ls.money.status}
 
-      if(sum > 1000) {
+      if(Number(sum) > 1000) {
         copyState.money.sum = '1000';
-      } else if(sum < 0) {
+      } else if(Number(sum) < 0) {
         copyState.money.sum = '0';
         copyState.money.status.errors = "Сумма должна быть от 1 до 1000";
         copyState.money.status.type = true
       }else{
-        if(sum<1){
+        if(Number(sum)<1){
           copyState.money.sum = sum;
           copyState.money.status.errors = "Сумма должна быть от 1 до 1000";
           copyState.money.status.type = true;
