@@ -69,15 +69,17 @@ export default function operatorContainer ():any{
     setLs(prev =>{return copyState})
   }
 
-  const phoneTransformStringInArrayNumbs =(string)=>{
-    if(string === '' || string === '(') return '';
-    if(!string.match(/[0-9]{1,1}/g)) return false;
+  const phoneTransformStringInArrayNumbs =(phoneNumber:string)=>{
+    if(phoneNumber === '' || phoneNumber === '(' || !phoneNumber.match(/[0-9]{1,1}/g)) return '';
 
-    string = string.match(/[0-9]{1,1}/g);
-    if(string.length >10) return false;
-    return string;
+    let numArrStr:string[] = phoneNumber.match(/[0-9]{1,1}/g);
+    let numArr:number[] = []
+    for(let i:number=0; i<numArrStr.length; i++){
+      numArr.push(Number(numArrStr[i]))
+    }
+    if(numArr || numArr.length <=10) return numArr;
   }
-  const phoneMask=(phone:number[])=>{
+  const phoneMask=(phone:number[]|string)=>{
     const mask:string[] = "(xxx) xxx xx-xx".split('',50);
     let phoneNumber:string = '';
     let counterPhone:number = 0;
@@ -93,13 +95,13 @@ export default function operatorContainer ():any{
     }
     return (phoneNumber);
   }
-  const phoneValidationNum =(numb)=>{
+  const phoneValidationNum =(numb:string)=>{
     copyState.phone = {...ls.phone}
     copyState.phone.status = {...ls.phone.status}
     copyState.phone.status.type = false
 
-    const phoneNumb = phoneTransformStringInArrayNumbs(numb)
-    if (phoneNumb === false) return false
+    const phoneNumb:number[]|string = phoneTransformStringInArrayNumbs(numb)
+    //if (phoneNumb === false) return false
     if(phoneNumb === ''){
       copyState.phone.num = ''
       copyState.phone.status.errors = "Вы забыли написать номер телефона"
@@ -115,8 +117,8 @@ export default function operatorContainer ():any{
 
     setLs(prev=>{return copyState})
   }
-  const phoneCheckAllNum =(numb)=>{
-    const phoneNumb = phoneTransformStringInArrayNumbs(numb)
+  const phoneCheckAllNum =(numb:string)=>{
+    const phoneNumb:number[]|string = phoneTransformStringInArrayNumbs(numb)
     copyState.phone = {...ls.phone}
     copyState.phone.status = {...ls.phone.status}
 
@@ -125,7 +127,6 @@ export default function operatorContainer ():any{
       copyState.phone.status.errors = "Вы забыли написать номер телефона"
     }
     if(phoneNumb.length < 10){
-      console.log(phoneNumb.length)
       copyState.phone.status.type = true
       copyState.phone.status.errors = "Номер телефона не верный"
     }
