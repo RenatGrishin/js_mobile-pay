@@ -2,9 +2,11 @@ import React from 'react'
 import Operator from "./operator";
 import {useState} from 'react'
 import {number, string} from "prop-types";
+import {useRouter} from "next/router";
 
 
 const localState = {
+  operatorID: 0,
   phone: {num: '', status:{type: false, errors:'Введите номер телефона'}},
   money: {sum: '', status:{type: false, errors:'Сумма должна быть от 1 до 1000'}},
 }
@@ -14,6 +16,10 @@ export const OperatorContext = React.createContext(null);
 export default function operatorContainer ():any{
   const [ls, setLs] = useState(localState)
   const copyState = {...ls}
+  const router = useRouter();
+  copyState.operatorID = Number(router.query.id);
+  console.log(copyState.operatorID)
+
 
   const delFirstZero =(sum:string)=>{
     const check = sum.slice(0,2);

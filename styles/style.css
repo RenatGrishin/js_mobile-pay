@@ -70,3 +70,33 @@ body{margin: 20px}
 
 @media screen and (max-width: 480px){
 }
+
+.complete-none{
+    display: none;
+}
+#complete-title{
+    color: #0070f3;
+    text-align: center;
+    animation-name: complete-title-anim;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes complete-title-anim {
+    0%{opacity: 0%}
+    100%{opacity: 100%}
+}
+
+.close-form{
+    animation-name: close-form-anim;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes close-form-anim {
+    0%{opacity: 100%}
+    100%{
+        opacity: 0%;
+        display: none;
+    }
+}
