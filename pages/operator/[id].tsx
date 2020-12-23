@@ -14,10 +14,15 @@ const localState = {
 export const OperatorContext = React.createContext(null);
 
 export default function operatorContainer ():any{
-  const [ls, setLs] = useState(localState)
-  const copyState = {...ls}
   const router = useRouter();
-  copyState.operatorID = Number(router.query.id);
+
+  let newLS = localState;
+  newLS.operatorID = 1;
+  if (Number(router.query.id)) newLS.operatorID = Number(router.query.id);
+  console.log(newLS);
+
+  const [ls, setLs] = useState(newLS)
+  const copyState = {...ls}
 
 
   const delFirstZero =(sum:string)=>{

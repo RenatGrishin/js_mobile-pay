@@ -23,7 +23,8 @@ export default function Operator ({moneyValidationSum,
         <Complete />
       </div>
     <div id="pay-form">
-      <h2>{operatorState.opeartors[state.operatorID].name}</h2>
+      {console.log(operatorState.opeartors[state.operatorID].name)}
+      <h2>{operatorState.opeartors[state.operatorID-1].name}</h2>
       <div className="input-number">
         <h4>Номер телефона:</h4>
         <input
