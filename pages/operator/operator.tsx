@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {OperatorContext} from "./[id]";
 import operatorState from "../store";
 import Complete from "./complete";
-import Link from "next/link";
+import Router from 'next/router';
 
 export default function Operator ({moneyValidationSum,
                                     phoneValidationNum,
@@ -10,19 +10,13 @@ export default function Operator ({moneyValidationSum,
                                     moneyCheckError,
                                     phoneCheckError,
                                     phoneCheckAllNum,
-                                    showError
+                                    showError,
+                                    sendMoney
                                   }){
 
   const state = useContext(OperatorContext)
 
 // надо найти элемент по id
-  function sendMoney (){
-    document.getElementById("pay-form").classList.add("close-form");
-    setTimeout(()=>{
-      document.getElementById("complete-id").classList.remove("complete-none")
-    }, 500)
-    setTimeout(()=>{},2000)
-  }
 
   return(<div>
       <div id="complete-id" className="complete-none">

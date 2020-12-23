@@ -2,7 +2,7 @@ import React from 'react'
 import Operator from "./operator";
 import {useState} from 'react'
 import {number, string} from "prop-types";
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 
 
 const localState = {
@@ -18,7 +18,6 @@ export default function operatorContainer ():any{
   const copyState = {...ls}
   const router = useRouter();
   copyState.operatorID = Number(router.query.id);
-  console.log(copyState.operatorID)
 
 
   const delFirstZero =(sum:string)=>{
@@ -156,9 +155,15 @@ export default function operatorContainer ():any{
     }
     return '';
   }
-
   const showError =(err, msg)=>{
     if(err) return <div className="input-error">{msg}</div>
+  }
+  const sendMoney =()=>{
+    document.getElementById("pay-form").classList.add("close-form");
+    setTimeout(()=>{
+      document.getElementById("complete-id").classList.remove("complete-none")
+    }, 500)
+    setTimeout(()=>{Router.push('/')},2000)
   }
 
   return(<div>
@@ -171,6 +176,7 @@ export default function operatorContainer ():any{
           phoneCheckError={phoneCheckError}
           phoneCheckAllNum={phoneCheckAllNum}
           showError={showError}
+          sendMoney={sendMoney}
         />
       </OperatorContext.Provider>
     </div>
