@@ -11,20 +11,20 @@ export default function Operator ({moneyValidationSum,
                                     phoneCheckError,
                                     phoneCheckAllNum,
                                     showError,
-                                    sendMoney
+                                    sendMoney,
+                                    getOperatorName
                                   }){
 
   const state = useContext(OperatorContext)
 
-// надо найти элемент по id
+
 
   return(<div>
       <div id="complete-id" className="complete-none">
         <Complete />
       </div>
     <div id="pay-form">
-      {console.log(operatorState.opeartors[state.operatorID].name)}
-      <h2>{operatorState.opeartors[state.operatorID-1].name}</h2>
+      <h2>{getOperatorName(state.operatorID, operatorState.opeartors)}</h2>
       <div className="input-number">
         <h4>Номер телефона:</h4>
         <input

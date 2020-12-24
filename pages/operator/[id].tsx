@@ -19,7 +19,6 @@ export default function operatorContainer ():any{
   let newLS = localState;
   newLS.operatorID = 1;
   if (Number(router.query.id)) newLS.operatorID = Number(router.query.id);
-  console.log(newLS);
 
   const [ls, setLs] = useState(newLS)
   const copyState = {...ls}
@@ -170,6 +169,11 @@ export default function operatorContainer ():any{
     }, 500)
     setTimeout(()=>{Router.push('/')},2000)
   }
+  const getOperatorName=(id:number, array:[{id:number, name:string, img:string}])=>{
+    console.log(array)
+    let operatorName = array.filter((arr)=>{ return arr.id === id});
+    return(operatorName[0].name)
+  }
 
   return(<div>
       <OperatorContext.Provider value={ls}>
@@ -182,6 +186,7 @@ export default function operatorContainer ():any{
           phoneCheckAllNum={phoneCheckAllNum}
           showError={showError}
           sendMoney={sendMoney}
+          getOperatorName={getOperatorName}
         />
       </OperatorContext.Provider>
     </div>
